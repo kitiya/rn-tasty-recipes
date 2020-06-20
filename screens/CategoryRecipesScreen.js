@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Platform } from "react-native";
+import Colors from "../constants/Colors";
 import { CATEGORIES } from "../data/dummy-data";
 
 const CategoryRecipesScreen = (props) => {
@@ -19,6 +20,20 @@ const CategoryRecipesScreen = (props) => {
       />
     </View>
   );
+};
+
+CategoryRecipesScreen.navigationOptions = (navigationData) => {
+  const catId = navigationData.navigation.getParam("categoryId");
+
+  const selectedCategory = CATEGORIES.find((item) => item.id === catId);
+
+  return {
+    headerTitle: selectedCategory.title,
+    headerStyle: {
+      backgroundColor: Platform.OS == "ios" ? Colors.light : Colors.primary,
+    },
+    headerTintColor: Platform.OS == "ios" ? Colors.primary : Colors.light,
+  };
 };
 
 const styles = StyleSheet.create({

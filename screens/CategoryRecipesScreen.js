@@ -3,7 +3,6 @@ import { View, Text, Button, StyleSheet, Platform } from "react-native";
 import Colors from "../constants/Colors";
 import { CATEGORIES } from "../data/dummy-data";
 
-// Setting Dynamic Navigation Options (see previous commit)
 const CategoryRecipesScreen = (props) => {
   const catId = props.navigation.getParam("categoryId");
 
@@ -15,7 +14,7 @@ const CategoryRecipesScreen = (props) => {
       <Button
         title="Go to Recipe Detail"
         onPress={() => {
-          props.navigation.push("CategoryRecipes");
+          props.navigation.push("RecipeDetail");
           // props.navigation.navigate({ routeName: "RecipeDetail" });
         }}
       />
@@ -24,16 +23,13 @@ const CategoryRecipesScreen = (props) => {
 };
 
 CategoryRecipesScreen.navigationOptions = (navigationData) => {
+  // console.log("\n\nNavigation Data\n", navigationData);
   const catId = navigationData.navigation.getParam("categoryId");
 
   const selectedCategory = CATEGORIES.find((item) => item.id === catId);
 
   return {
     headerTitle: selectedCategory.title,
-    headerStyle: {
-      backgroundColor: Platform.OS == "ios" ? Colors.light : Colors.primary,
-    },
-    headerTintColor: Platform.OS == "ios" ? Colors.primary : Colors.light,
   };
 };
 

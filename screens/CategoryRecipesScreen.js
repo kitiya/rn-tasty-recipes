@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, Platform } from "react-native";
 import Colors from "../constants/Colors";
 import { CATEGORIES } from "../data/dummy-data";
 
+// Setting Dynamic Navigation Options (see previous commit)
 const CategoryRecipesScreen = (props) => {
   const catId = props.navigation.getParam("categoryId");
 

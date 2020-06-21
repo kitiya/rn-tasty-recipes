@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 5,
     height: 150,
-    borderRadius: 10,
-    overflow: "hidden",
+    borderRadius: 10, // for android
+    overflow: "hidden", // for android
   },
   container: {
     flex: 1,

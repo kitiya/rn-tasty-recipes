@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import { CATEGORIES, RECIPES } from "../data/dummy-data";
 import RecipeItem from "../components/RecipeItem";
 
@@ -18,7 +18,14 @@ const CategoryRecipesScreen = (props) => {
         duration={itemData.item.duration}
         complexity={itemData.item.complexity}
         affordability={itemData.item.affordability}
-        onSelectRecipe={() => {}}
+        onSelectRecipe={() => {
+          props.navigation.navigate({
+            routeName: "RecipeDetail",
+            params: {
+              recipeId: itemData.item.id,
+            },
+          });
+        }}
       />
     );
   };

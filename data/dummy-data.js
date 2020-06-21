@@ -14,7 +14,7 @@ export const CATEGORIES = [
   new Category("c10", "Summer", "#47fced"),
 ];
 
-export const RECIPE = [
+export const RECIPES = [
   new Recipe(
     "m1",
     ["c1", "c2"],

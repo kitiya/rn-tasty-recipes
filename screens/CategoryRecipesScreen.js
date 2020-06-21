@@ -1,38 +1,48 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Platform } from "react-native";
-import Colors from "../constants/Colors";
-import { CATEGORIES } from "../data/dummy-data";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import { CATEGORIES, RECIPES } from "../data/dummy-data";
+import RecipeItem from "../components/RecipeItem";
 
 const CategoryRecipesScreen = (props) => {
-  // console.log(props);
   const catId = props.navigation.getParam("categoryId");
 
-  const selectedCategory = CATEGORIES.find((item) => item.id === catId);
+  const displayedRecipes = RECIPES.filter(
+    (recipe) => recipe.categoryIds.indexOf(catId) >= 0
+  );
+
+  const renderRecipeItem = (itemData) => {
+    return (
+      <RecipeItem
+        title={itemData.item.title}
+        image={itemData.item.imageUrl}
+        duration={itemData.item.duration}
+        complexity={itemData.item.complexity}
+        affordability={itemData.item.affordability}
+        onSelectRecipe={() => {}}
+      />
+    );
+  };
+
   return (
     <View style={styles.screen}>
-      <Text>THE CATEGORY RECIPES SCREEN!</Text>
-      <Text>{selectedCategory.title}</Text>
-      <Button
-        title="Go to Recipe Detail"
-        onPress={() => {
-          props.navigation.push("RecipeDetail");
-          // props.navigation.navigate({ routeName: "RecipeDetail" });
-        }}
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={displayedRecipes}
+        renderItem={renderRecipeItem}
+        style={{ width: "100%" }}
       />
     </View>
   );
 };
 
-// CategoryRecipesScreen.navigationOptions = (navigationData) => {
-//   // console.log("\n\nNavigation Data\n", navigationData);
-//   const catId = navigationData.navigation.getParam("categoryId");
+CategoryRecipesScreen.navigationOptions = (navigationData) => {
+  const catId = navigationData.navigation.getParam("categoryId");
+  const selectedCategory = CATEGORIES.find((item) => item.id === catId);
 
-//   const selectedCategory = CATEGORIES.find((item) => item.id === catId);
-
-//   return {
-//     headerTitle: selectedCategory.title,
-//   };
-// };
+  return {
+    headerTitle: selectedCategory.title,
+  };
+};
 
 const styles = StyleSheet.create({
   screen: {

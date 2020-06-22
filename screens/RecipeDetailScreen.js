@@ -1,5 +1,8 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
+import HeaderButton from "../components/HeaderButton";
 import { RECIPES } from "../data/dummy-data";
 import Colors from "../constants/Colors";
 
@@ -23,6 +26,17 @@ RecipeDetailScreen.navigationOptions = (navigationData) => {
 
   return {
     headerTitle: selectedRecipe.title,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Favorite"
+          iconName="ios-star"
+          onPress={() => {
+            console.log("Fav");
+          }}
+        />
+      </HeaderButtons>
+    ),
   };
 };
 

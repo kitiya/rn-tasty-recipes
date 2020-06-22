@@ -34,7 +34,12 @@ const styles = StyleSheet.create({
     margin: 5,
     height: 150,
     borderRadius: 10, // for android
-    overflow: "hidden", // for android
+    overflow:
+      // for android
+      Platform.OS === "andirod" && Platform.Version >= 21
+        ? "hidden"
+        : "visible",
+    elevation: 5,
   },
   container: {
     flex: 1,
@@ -42,13 +47,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding: 15,
     borderRadius: 10,
-
     // shadowing only works on iOS
     shadowColor: Colors.dark,
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,
-    elevation: 3,
   },
   title: {
     fontFamily: "open-sans-bold",

@@ -28,6 +28,7 @@ const RecipesNavigator = createStackNavigator(
   }
 );
 
+// see commit #130. Adding tab-based navigation
 // nested navigator
 const RecipesFavTabNavigator = createBottomTabNavigator({
   // RecipesNavigator from the createStackNavigator above

@@ -4,6 +4,7 @@ export default {
   accentBlue: "#50d0ff",
   accentGreen: "#50ff7f",
   accentPink: "#ff5079",
+  borderLight: "#ccc",
   dark: "#444",
   light: "#fff",
 };

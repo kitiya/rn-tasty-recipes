@@ -1,22 +1,49 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import HeaderButton from "../components/HeaderButton";
+import DefaultText from "../components/DefaultText";
 import { RECIPES } from "../data/dummy-data";
 import Colors from "../constants/Colors";
+
+const ListItem = (props) => {
+  return (
+    <View style={styles.listItem}>
+      <DefaultText>{props.children}</DefaultText>
+    </View>
+  );
+};
 
 const RecipeDetailScreen = (props) => {
   const recipeId = props.navigation.getParam("recipeId");
   const selectedRecipe = RECIPES.find((recipe) => recipe.id === recipeId);
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title} numberOfLines={1}>
-        {selectedRecipe.title}
-      </Text>
-      <Image style={styles.image} source={{ uri: selectedRecipe.imageUrl }} />
-    </View>
+    <ScrollView>
+      <View style={styles.screen}>
+        <Image style={styles.image} source={{ uri: selectedRecipe.imageUrl }} />
+      </View>
+      <View style={styles.detailsContainer}>
+        <DefaultText style={styles.details}>
+          {selectedRecipe.duration} m
+        </DefaultText>
+        <DefaultText style={styles.details}>
+          {selectedRecipe.complexity.toUpperCase()}
+        </DefaultText>
+        <DefaultText style={styles.details}>
+          {selectedRecipe.affordability.toUpperCase()}
+        </DefaultText>
+      </View>
+      <Text style={styles.title}>Ingredients</Text>
+      {selectedRecipe.ingredients.map((ingredientItem, index) => {
+        return <ListItem key={index}>{ingredientItem}</ListItem>;
+      })}
+      <Text style={styles.title}>Steps</Text>
+      {selectedRecipe.steps.map((stepItem, index) => {
+        return <ListItem key={index}>{stepItem}</ListItem>;
+      })}
+    </ScrollView>
   );
 };
 
@@ -41,18 +68,33 @@ RecipeDetailScreen.navigationOptions = (navigationData) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 10,
+  },
+  detailsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+    backgroundColor: Colors.accent,
+  },
+  details: {
+    color: Colors.light,
   },
   title: {
-    fontSize: 20,
+    marginVertical: 10,
+    fontSize: 22,
     fontFamily: "open-sans-bold",
+    textAlign: "center",
     color: Colors.primary,
   },
-  image: {
-    width: "80%",
-    height: "50%",
+  listItem: {
+    marginVertical: 5,
+    marginHorizontal: 20,
+    padding: 10,
+    borderColor: Colors.borderLight,
+    borderWidth: 1,
     borderRadius: 10,
   },
 });

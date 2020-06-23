@@ -80,11 +80,32 @@ const RecipesFavTabNavigator =
         },
       });
 
-const FiltersNavigator = createStackNavigator({ Filters: FiltersScreen });
+const FiltersNavigator = createStackNavigator(
+  { Filters: FiltersScreen },
+  {
+    // navigationOptions: { drawerLable: "Filters!!" },
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
 
-const MainNavigator = createDrawerNavigator({
-  RecipeFavs: RecipesFavTabNavigator,
-  Filters: FiltersNavigator,
-});
+const MainNavigator = createDrawerNavigator(
+  {
+    RecipeFavs: {
+      screen: RecipesFavTabNavigator,
+      navigationOptions: { drawerLabel: "Recipes" },
+    },
+    Filters: FiltersNavigator,
+  },
+  {
+    contentOptions: {
+      activeTintColor: Colors.accent,
+      labelStyle: {
+        fontFamily: "open-sans-bold",
+      },
+    },
+    drawerBackgroundColor: Colors.accentGreen,
+  }
+);
+
 // root navigator
 export default createAppContainer(MainNavigator);

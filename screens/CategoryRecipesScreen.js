@@ -1,11 +1,19 @@
 import React from "react";
-import { CATEGORIES, RECIPES } from "../data/dummy-data";
+
+// useSelector allows us to select a slice of our state, of our globally managed state and use it in this component
+import { useSelector } from "react-redux";
+
+import { CATEGORIES } from "../data/dummy-data";
 import RecipeList from "../components/RecipeList";
 
 const CategoryRecipesScreen = (props) => {
   const catId = props.navigation.getParam("categoryId");
 
-  const displayedRecipes = RECIPES.filter(
+  const availableRecipes = useSelector(
+    (state) => state.recipes.filteredRecipes
+  );
+
+  const displayedRecipes = availableRecipes.filter(
     (recipe) => recipe.categoryIds.indexOf(catId) >= 0
   );
 

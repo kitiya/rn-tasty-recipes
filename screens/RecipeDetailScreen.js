@@ -1,10 +1,10 @@
 import React from "react";
 import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
 
 import HeaderButton from "../components/HeaderButton";
 import DefaultText from "../components/DefaultText";
-import { RECIPES } from "../data/dummy-data";
 import Colors from "../constants/Colors";
 
 const ListItem = (props) => {
@@ -17,7 +17,11 @@ const ListItem = (props) => {
 
 const RecipeDetailScreen = (props) => {
   const recipeId = props.navigation.getParam("recipeId");
-  const selectedRecipe = RECIPES.find((recipe) => recipe.id === recipeId);
+
+  const availabeRecipes = useSelector((state) => state.recipes.recipes);
+  const selectedRecipe = availabeRecipes.find(
+    (recipe) => recipe.id === recipeId
+  );
 
   return (
     <ScrollView>

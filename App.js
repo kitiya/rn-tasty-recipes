@@ -3,10 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import { enableScreens } from "react-native-screens";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
 
 import RecipesNavigator from "./navigation/RecipesNavigator";
+import recipesReducer from "./store/reducers/recipes";
 
 enableScreens();
+
+const rootReducer = combineReducers({
+  recipes: recipesReducer,
+});
+
+const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -27,5 +36,9 @@ export default function App() {
     );
   }
 
-  return <RecipesNavigator />;
+  return (
+    <Provider store={store}>
+      <RecipesNavigator />
+    </Provider>
+  );
 }

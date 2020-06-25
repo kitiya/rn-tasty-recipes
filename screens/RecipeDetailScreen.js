@@ -53,10 +53,11 @@ const RecipeDetailScreen = (props) => {
 
 RecipeDetailScreen.navigationOptions = (navigationData) => {
   const recipeId = navigationData.navigation.getParam("recipeId");
-  const selectedRecipe = RECIPES.find((recipe) => recipe.id === recipeId);
+  const recipeTitle = navigationData.navigation.getParam("recipeTitle");
+  // const selectedRecipe = RECIPES.find((recipe) => recipe.id === recipeId);
 
   return {
-    headerTitle: selectedRecipe.title,
+    headerTitle: recipeTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
